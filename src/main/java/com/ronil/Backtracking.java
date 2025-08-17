@@ -114,11 +114,11 @@ public class Backtracking {
 
         for (char[] row : board) Arrays.fill(row, '.');
 
-        backtrackSolvedQueens(result, board, 0);
+        backtrackSolveNQueens(result, board, 0);
         return result;
     }
 
-    private static void backtrackSolvedQueens(List<List<String>> result, char[][] board, int row) {
+    private static void backtrackSolveNQueens(List<List<String>> result, char[][] board, int row) {
         int n = board.length;
 
         if (row == n) {
@@ -129,7 +129,7 @@ public class Backtracking {
         for (int column = 0; column < n; column++) {
             if (isSafe(board, row, column)) {
                 board[row][column] = 'Q';
-                backtrackSolvedQueens(result, board, row + 1);
+                backtrackSolveNQueens(result, board, row + 1);
                 board[row][column] = '.';
             }
         }
@@ -138,9 +138,12 @@ public class Backtracking {
     private static boolean isSafe(char[][] board, int row, int column) {
         int n = board.length;
 
-        for (int i = 0; i < row; i++) if (board[i][column] == 'Q') return false;
-        for (int i = row - 1, j = column - 1; i >= 0 && j >= 0; i--, j--) if (board[i][j] == 'Q') return false;
-        for (int i = row - 1, j = column + 1; i >= 0 && j < n; i--, j++) if (board[i][j] == 'Q') return false;
+        for (int i = 0; i < row; i++)
+            if (board[i][column] == 'Q') return false;
+        for (int i = row - 1, j = column - 1; i >= 0 && j >= 0; i--, j--)
+            if (board[i][j] == 'Q') return false;
+        for (int i = row - 1, j = column + 1; i >= 0 && j < n; i--, j++)
+            if (board[i][j] == 'Q') return false;
 
         return true;
     }
