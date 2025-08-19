@@ -40,6 +40,13 @@ public class Backtracking {
             System.out.println();
         }
         // Time: O(n!) Space: O(n^2 * n * solutions)
+
+        // Given a string s, partition it such that every substring of the partition is a palindrome and return all possible palindrome partitioning of s.
+        String s = "aab";
+        for (List<String> part : partition(s)) {
+            System.out.println(part);
+        }
+        // Time: O(2^n * n) Space: O(2^n * n)
     }
 
     private static List<List<Integer>> subsets(int[] nums) {
@@ -152,5 +159,33 @@ public class Backtracking {
         List<String> config = new ArrayList<>();
         for (char[] row : board) config.add(new String(row));
         return config;
+    }
+
+    private static List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        backtrackPartition(result, new ArrayList<>(), s, 0);
+        return result;
+    }
+
+    private static void backtrackPartition(List<List<String>> result, List<String> current, String s, int start) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int end = start + 1; end <= s.length(); end++) {
+            String substring = s.substring(start, end);
+            if (isPalindrome(substring)) {
+                current.add(substring);
+                backtrackPartition(result, current, s, end);
+                current.removeLast();
+            }
+        }
+    }
+
+    private static boolean isPalindrome(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) if (s.charAt(left++) != s.charAt(right--)) return false;
+        return true;
     }
 }
