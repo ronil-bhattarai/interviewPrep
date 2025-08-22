@@ -12,7 +12,8 @@ public class TwoPointers {
         System.out.println(maxArea(height));
         // Time: O(n) Space: O(1)
 
-        // Given an integer array nums[], return all unique triplets [nums[i], nums[j], nums[k]] such that: such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+        // Given an integer array nums[]
+        // Return all unique triplets [nums[i], nums[j], nums[k]] such that: such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
         int[] nums = {-1, 0, 1, 2, -1, -4};
         System.out.println(threeSum(nums));
         // Time: O(n^2) Space: O(1)
@@ -22,7 +23,8 @@ public class TwoPointers {
         System.out.println(removeDuplicates(nums1));
         // Time: O(n) Space: O(1)
 
-        // Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+        // Given n non-negative integers representing an elevation map where the width of each bar is 1
+        // Compute how much water it can trap after raining.
         int[] height1 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         System.out.println(trap(height1));
         // Time: O(n) Space: O(1)
@@ -30,7 +32,7 @@ public class TwoPointers {
         // Given two strings s and t, check whether s is a subsequence of t.
         String s = "abc", t = "ahbgdc";
         System.out.println(isSubsequence(s, t));
-        // Time: O() Space: O()
+        // Time: O(n) Space: O(1)
     }
 
     private static int maxArea(int[] height) {
@@ -42,8 +44,10 @@ public class TwoPointers {
             int area = h * w;
             maxArea = Math.max(maxArea, area);
 
-            if (height[left] < height[right]) left++;
-            else right--;
+            if (height[left] < height[right])
+                left++;
+            else
+                right--;
         }
         return maxArea;
     }
@@ -54,18 +58,22 @@ public class TwoPointers {
         List<List<Integer>> result = new ArrayList<>();
 
         for (int i = 0; i < nums.length - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
             int left = i + 1, right = nums.length - 1;
 
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    while (nums[left] == nums[left + 1]) left++;
-                    while (nums[right] == nums[right - 1]) right--;
+                    while (nums[left] == nums[left + 1])
+                        left++;
+                    while (nums[right] == nums[right - 1])
+                        right--;
                     left--;
                     right--;
-                } else if (sum < 0) left++;
+                } else if (sum < 0)
+                    left++;
                 else right--;
             }
         }
@@ -73,7 +81,8 @@ public class TwoPointers {
     }
 
     private static int removeDuplicates(int[] nums) {
-        if (nums.length == 0) return 0;
+        if (nums.length == 0)
+            return 0;
 
         int len = 0;
         for (int j = 1; j < nums.length; j++) {
@@ -90,12 +99,16 @@ public class TwoPointers {
 
         while (left <= right) {
             if (height[left] <= height[right]) {
-                if (height[left] >= leftMax) leftMax = height[left];
-                else water += leftMax - height[left];
+                if (height[left] >= leftMax)
+                    leftMax = height[left];
+                else
+                    water += leftMax - height[left];
                 left++;
             } else {
-                if (height[right] >= rightMax) rightMax = height[right];
-                else water += rightMax - height[right];
+                if (height[right] >= rightMax)
+                    rightMax = height[right];
+                else
+                    water += rightMax - height[right];
                 right--;
             }
         }
@@ -106,7 +119,8 @@ public class TwoPointers {
         int i = 0, j = 0;
 
         while (i < s.length() && j < t.length()) {
-            if (s.charAt(i) == t.charAt(j)) i++;
+            if (s.charAt(i) == t.charAt(j))
+                i++;
             j++;
         }
         return i == s.length();

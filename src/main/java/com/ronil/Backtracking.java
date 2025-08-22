@@ -13,7 +13,8 @@ public class Backtracking {
         }
         // Time: O(2^n) Space: O(n)
 
-        // Given an array of distinct integers candidates[] and a target integer, return all unique combinations where the chosen numbers sum up to the target.
+        // Given an array of distinct integers candidates[] and a target integer.
+        // Return all unique combinations where the chosen numbers sum up to the target.
         int[] candidates = {2, 3, 6, 7};
         int target = 7;
         for (List<Integer> list : combinationSum(candidates, target)) {
@@ -21,7 +22,9 @@ public class Backtracking {
         }
         // Time: O(2^t) Space: O(t) + O(2^t)
 
-        // Given a 2D board of characters and a word, return true if the word exists in the grid. The word can be constructed from letters of sequentially adjacent cells (horizontally or vertically), and each letter cell may not be used more than once.
+        // Given a 2D board of characters and a word, return true if the word exists in the grid.
+        // The word can be constructed from letters of sequentially adjacent cells (horizontally or vertically),
+        // And each letter cell may not be used more than once.
         char[][] board = {
                 {'A', 'B', 'C', 'E'},
                 {'S', 'F', 'C', 'S'},
@@ -31,7 +34,8 @@ public class Backtracking {
         System.out.println(exist(board, word));
         // Time: O(row * column * 4^(length of word)) Space: O(l)
 
-        // Place N queens on an N × N chessboard such that no two queens share the same row, column, or diagonal and return all possible board configurations as a list of strings.
+        // Place N queens on an N × N chessboard such that no two queens share the same row, column, or diagonal,
+        // And return all possible board configurations as a list of strings.
         int n = 4;
         for (List<String> config : solveNQueens(n)) {
             for (String row : config) {
@@ -41,7 +45,8 @@ public class Backtracking {
         }
         // Time: O(n!) Space: O(n^2 * n * solutions)
 
-        // Given a string s, partition it such that every substring of the partition is a palindrome and return all possible palindrome partitioning of s.
+        // Given a string s, partition it such that every substring of the partition is a palindrome,
+        // And return all possible palindrome partitioning of s.
         String s = "aab";
         for (List<String> part : partition(s)) {
             System.out.println(part);
@@ -78,7 +83,8 @@ public class Backtracking {
             return;
         }
 
-        if (remain < 0) return;
+        if (remain < 0)
+            return;
 
         for (int i = start; i < candidates.length; i++) {
             current.add(candidates[i]);
@@ -91,16 +97,20 @@ public class Backtracking {
         int rows = board.length, columns = board[0].length;
 
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) if (dfs(board, word, i, j, 0)) return true;
+            for (int j = 0; j < columns; j++)
+                if (dfs(board, word, i, j, 0))
+                    return true;
         }
         return false;
     }
 
     private static boolean dfs(char[][] board, String word, int row, int column, int index) {
-        if (index == word.length()) return true;
+        if (index == word.length())
+            return true;
 
         if (row < 0 || row >= board.length || column < 0 || column > board[0].length
-                || board[row][column] != word.charAt(index)) return false;
+                || board[row][column] != word.charAt(index))
+            return false;
 
         char temp = board[row][column];
         board[row][column] = '#';
@@ -119,7 +129,8 @@ public class Backtracking {
         List<List<String>> result = new ArrayList<>();
         char[][] board = new char[n][n];
 
-        for (char[] row : board) Arrays.fill(row, '.');
+        for (char[] row : board)
+            Arrays.fill(row, '.');
 
         backtrackSolveNQueens(result, board, 0);
         return result;
@@ -146,18 +157,22 @@ public class Backtracking {
         int n = board.length;
 
         for (int i = 0; i < row; i++)
-            if (board[i][column] == 'Q') return false;
+            if (board[i][column] == 'Q')
+                return false;
         for (int i = row - 1, j = column - 1; i >= 0 && j >= 0; i--, j--)
-            if (board[i][j] == 'Q') return false;
+            if (board[i][j] == 'Q')
+                return false;
         for (int i = row - 1, j = column + 1; i >= 0 && j < n; i--, j++)
-            if (board[i][j] == 'Q') return false;
+            if (board[i][j] == 'Q')
+                return false;
 
         return true;
     }
 
     private static List<String> construct(char[][] board) {
         List<String> config = new ArrayList<>();
-        for (char[] row : board) config.add(new String(row));
+        for (char[] row : board)
+            config.add(new String(row));
         return config;
     }
 
@@ -185,7 +200,9 @@ public class Backtracking {
 
     private static boolean isPalindrome(String s) {
         int left = 0, right = s.length() - 1;
-        while (left < right) if (s.charAt(left++) != s.charAt(right--)) return false;
+        while (left < right)
+            if (s.charAt(left++) != s.charAt(right--))
+                return false;
         return true;
     }
 }

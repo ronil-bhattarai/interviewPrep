@@ -11,8 +11,7 @@ public class MergeIntervals {
 
         // Given a collection of intervals, merge all overlapping intervals
         int[][] intervals = {{1, 3}, {8, 10}, {2, 6}, {15, 18}};
-        int[][] mergeResult = merge(intervals);
-        for (int[] interval : mergeResult) {
+        for (int[] interval : merge(intervals)) {
             System.out.println(Arrays.toString(interval));
         }
         // Time: O(n log n) Space: O(n)
@@ -20,8 +19,7 @@ public class MergeIntervals {
         // Given a list of non-overlapping, sorted intervals, insert a new interval and merge if necessary
         int[][] intervals1 = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
         int[] newInterval = {4, 8};
-        int[][] insertResult = insert(intervals1, newInterval);
-        for (int[] interval : insertResult) {
+        for (int[] interval : insert(intervals1, newInterval)) {
             System.out.println(Arrays.toString(interval));
         }
         // Time: O(n) Space: O(n)
@@ -41,24 +39,25 @@ public class MergeIntervals {
         schedule.add(Arrays.asList(new Interval(1, 2), new Interval(5, 6)));
         schedule.add(List.of(new Interval(1, 3)));
         schedule.add(List.of(new Interval(4, 10)));
-
-        List<Interval> freeTimes = employeeFreeTime(schedule);
-        for (Interval interval : freeTimes) {
+        for (Interval interval : employeeFreeTime(schedule)) {
             System.out.println("[" + interval.start + ", " + interval.end + "]");
         }
         // Time: O(n log n) Space: O(n)
     }
 
     private static int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
+        if (intervals.length <= 1)
+            return intervals;
 
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
 
         List<int[]> merged = new ArrayList<>();
 
         for (int[] interval : intervals) {
-            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) merged.add(interval);
-            else merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0])
+                merged.add(interval);
+            else
+                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
         }
         return merged.toArray(new int[merged.size()][]);
     }
@@ -89,26 +88,31 @@ public class MergeIntervals {
     }
 
     private static boolean canAttendMeetings(int[][] intervals) {
-        if (intervals.length <= 1) return true;
+        if (intervals.length <= 1)
+            return true;
 
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
 
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] < intervals[i - 1][1]) return false;
+            if (intervals[i][0] < intervals[i - 1][1])
+                return false;
         }
         return true;
     }
 
     private static int removeOverlapIntervals(int[][] intervals) {
-        if (intervals.length == 0) return 0;
+        if (intervals.length == 0)
+            return 0;
 
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[1]));
 
         int count = 0, end = intervals[0][1];
 
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] < end) count++;
-            else end = intervals[i][1];
+            if (intervals[i][0] < end)
+                count++;
+            else
+                end = intervals[i][1];
         }
         return count;
     }
@@ -116,7 +120,8 @@ public class MergeIntervals {
     private static List<Interval> employeeFreeTime(List<List<Interval>> schedule) {
         List<Interval> allIntervals = new ArrayList<>();
 
-        for (List<Interval> emp : schedule) allIntervals.addAll(emp);
+        for (List<Interval> emp : schedule)
+            allIntervals.addAll(emp);
 
         allIntervals.sort(Comparator.comparingInt(a -> a.start));
 
@@ -129,7 +134,8 @@ public class MergeIntervals {
             if (curr.start > prev.end) {
                 result.add(new Interval(prev.end, curr.start));
                 prev = curr;
-            } else prev.end = Math.max(prev.end, curr.end);
+            } else
+                prev.end = Math.max(prev.end, curr.end);
         }
         return result;
     }

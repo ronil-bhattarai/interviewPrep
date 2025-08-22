@@ -16,9 +16,10 @@ public class FastSlowPointer {
         // Determine if a number eventually reaches 1 when replaced by the sum of squares of its digits.
         int n = 19;
         System.out.println(isHappy(n));
-        // Time: O() Space: O()
+        // Time: O(log n) Space: O(1)
 
-        // Given the head of a singly linked list, return the middle node. If the list has an even number of nodes, return the second middle node.
+        // Given the head of a singly linked list, return the middle node.
+        // If the list has an even number of nodes, return the second middle node.
         ListNode head1 = new ListNode(1);
         head1.next = new ListNode(2);
         head1.next.next = new ListNode(3);
@@ -51,7 +52,8 @@ public class FastSlowPointer {
             slow = slow.next;
             fast = fast.next.next;
 
-            if (fast == slow) return true;
+            if (fast == slow)
+                return true;
         }
         return false;
     }
@@ -110,7 +112,8 @@ public class FastSlowPointer {
     }
 
     private static boolean isPalindrome(ListNode head) {
-        if (head == null || head.next == null) return true;
+        if (head == null || head.next == null)
+            return true;
 
         ListNode slow = head, fast = head;
 
@@ -124,7 +127,8 @@ public class FastSlowPointer {
         ListNode fistHalf = head;
 
         while (secondHalf != null) {
-            if (fistHalf.val != secondHalf.val) return false;
+            if (fistHalf.val != secondHalf.val)
+                return false;
             fistHalf = fistHalf.next;
             secondHalf = secondHalf.next;
         }

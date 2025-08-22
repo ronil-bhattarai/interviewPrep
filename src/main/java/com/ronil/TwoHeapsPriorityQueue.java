@@ -14,7 +14,8 @@ public class TwoHeapsPriorityQueue {
         System.out.println(findKthLargest(nums, k));
         // Time: O(n log k) Space: O(k)
 
-        // Given an array of 2D points (as int[][] points), and you need to return the K closest points to the origin (0, 0) using Euclidean distance.
+        // Given an array of 2D points (as int[][] points),
+        // And you need to return the K closest points to the origin (0, 0) using Euclidean distance.
         int[][] points = {{1, 3}, {-2, 2}, {5, 8}, {0, 1}};
         int k1 = 2;
         for (int[] point : kClosest(points, k1)) System.out.println(Arrays.toString(point));
@@ -46,7 +47,8 @@ public class TwoHeapsPriorityQueue {
 
         for (int num : nums) {
             minHeap.offer(num);
-            if (minHeap.size() > k) minHeap.poll();
+            if (minHeap.size() > k)
+                minHeap.poll();
         }
 
         return minHeap.peek();
@@ -59,11 +61,13 @@ public class TwoHeapsPriorityQueue {
 
         for (int[] point : points) {
             maxHeap.offer(point);
-            if (maxHeap.size() > k) maxHeap.poll();
+            if (maxHeap.size() > k)
+                maxHeap.poll();
         }
 
         int result[][] = new int[k][2];
-        for (int i = 0; i < k; i++) result[i] = maxHeap.poll();
+        for (int i = 0; i < k; i++)
+            result[i] = maxHeap.poll();
 
         return result;
 
@@ -77,21 +81,26 @@ public class TwoHeapsPriorityQueue {
         maxHeapMedian.offer(num);
         minHeapMedian.offer(maxHeapMedian.poll());
 
-        if (minHeapMedian.size() > maxHeapMedian.size()) maxHeapMedian.offer(minHeapMedian.poll());
+        if (minHeapMedian.size() > maxHeapMedian.size())
+            maxHeapMedian.offer(minHeapMedian.poll());
     }
 
     private static double findMedian() {
-        if (maxHeapMedian.size() == minHeapMedian.size()) return (maxHeapMedian.peek() + minHeapMedian.peek()) / 2.0;
+        if (maxHeapMedian.size() == minHeapMedian.size())
+            return (maxHeapMedian.peek() + minHeapMedian.peek()) / 2.0;
 
         return maxHeapMedian.peek();
     }
 
     private static int leastInterval(char[] tasks, int n) {
         int[] freq = new int[26];
-        for (char task : tasks) freq[task - 'A']++;
+        for (char task : tasks)
+            freq[task - 'A']++;
 
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-        for (int f : freq) if (f > 0) maxHeap.offer(f);
+        for (int f : freq)
+            if (f > 0)
+                maxHeap.offer(f);
 
         int time = 0;
 
@@ -101,33 +110,39 @@ public class TwoHeapsPriorityQueue {
 
             for (int i = 0; i < cycle && !maxHeap.isEmpty(); i++) {
                 int curr = maxHeap.poll();
-                if (curr > 1) temp.add(curr - 1);
+                if (curr > 1)
+                    temp.add(curr - 1);
                 time++;
             }
 
-            for (int remaining : temp) maxHeap.offer(remaining);
+            for (int remaining : temp)
+                maxHeap.offer(remaining);
 
-            if (!maxHeap.isEmpty()) time += (cycle - temp.size());
+            if (!maxHeap.isEmpty())
+                time += (cycle - temp.size());
         }
         return time;
     }
 
     private static int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> freqMap = new HashMap<>();
-        for (int num : nums) freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        for (int num : nums)
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
 
         PriorityQueue<Map.Entry<Integer, Integer>> minHeap =
                 new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
 
         for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
             minHeap.offer(entry);
-            if (minHeap.size() > k) minHeap.poll();
+            if (minHeap.size() > k)
+                minHeap.poll();
         }
 
         int[] result = new int[k];
         int i = 0;
 
-        while (!minHeap.isEmpty()) result[i++] = minHeap.poll().getKey();
+        while (!minHeap.isEmpty())
+            result[i++] = minHeap.poll().getKey();
 
         return result;
     }

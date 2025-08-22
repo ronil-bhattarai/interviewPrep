@@ -31,12 +31,14 @@ public class InPlaceReversal {
         System.out.println(Arrays.toString(nums));
         // Time: O(n) Space: O(1)
 
-        // Given a string s, reverse the order of words in the string. A word is defined as a sequence of non-space characters
+        // Given a string s, reverse the order of words in the string.
+        // A word is defined as a sequence of non-space characters
         String input = "  the  sky   is  blue  ";
         System.out.println(reverseWords(input));
         // Time: O(n) Space: O(n)
 
-        // Given the head of a linked list, reverse the nodes of the list k at a time and return the modified list. If the number of nodes is not a multiple of k, leave the last group as is.
+        // Given the head of a linked list, reverse the nodes of the list k at a time and return the modified list.
+        // If the number of nodes is not a multiple of k, leave the last group as is.
         ListNode head3 = new ListNode(1);
         head.next = new ListNode(2);
         head.next.next = new ListNode(3);
@@ -60,7 +62,8 @@ public class InPlaceReversal {
     }
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
-        if (head == null || n == m) return head;
+        if (head == null || n == m)
+            return head;
 
         ListNode dummy = new ListNode(0);
         dummy.next = head;
@@ -108,7 +111,8 @@ public class InPlaceReversal {
     private static ListNode reverseKGroup(ListNode head, int k) {
         ListNode node = head;
         for (int i = 0; i < k; i++) {
-            if (node == null) return head;
+            if (node == null)
+                return head;
             node = node.next;
         }
 
@@ -138,13 +142,17 @@ public class InPlaceReversal {
         StringBuilder sb = new StringBuilder();
         int left = 0, right = s.length() - 1;
 
-        while (left <= right && s.charAt(left) == ' ') left++;
-        while (left <= right && s.charAt(right) == ' ') right--;
+        while (left <= right && s.charAt(left) == ' ')
+            left++;
+        while (left <= right && s.charAt(right) == ' ')
+            right--;
 
         while (left <= right) {
             char c = s.charAt(left);
-            if (c != ' ') sb.append(c);
-            else if (!sb.isEmpty() && sb.charAt(sb.length() - 1) != ' ') sb.append(' ');
+            if (c != ' ')
+                sb.append(c);
+            else if (!sb.isEmpty() && sb.charAt(sb.length() - 1) != ' ')
+                sb.append(' ');
             left++;
         }
         return sb.toString();
@@ -161,7 +169,8 @@ public class InPlaceReversal {
     private static void printList(ListNode head) {
         while (head != null) {
             System.out.print(head.val);
-            if (head.next != null) System.out.print("->");
+            if (head.next != null)
+                System.out.print("->");
             head = head.next;
         }
         System.out.println();
