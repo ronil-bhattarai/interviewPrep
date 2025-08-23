@@ -24,8 +24,7 @@ public class CyclicSort {
         // Given an array of size n containing numbers from 1 to n, where one number appears twice & one number is missing.
         // Find both numbers
         int[] nums3 = {1, 2, 2, 4};
-        int[] result = findErrorNums(nums3);
-        System.out.println(Arrays.toString(result));
+        System.out.println(Arrays.toString(findErrorNums(nums3)));
         // Time: O(n) Space: O(1)
 
         // Given an array nums of n+1 integers, where each integer is in the range 1 … n inclusive.
