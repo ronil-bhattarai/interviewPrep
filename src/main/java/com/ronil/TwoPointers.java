@@ -70,7 +70,7 @@ public class TwoPointers {
                         left++;
                     while (nums[right] == nums[right - 1])
                         right--;
-                    left--;
+                    left++;
                     right--;
                 } else if (sum < 0)
                     left++;
