@@ -1,7 +1,6 @@
 package com.ronil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SlidingWindow {
     public static void main(String[] args) {
@@ -33,6 +32,19 @@ public class SlidingWindow {
         int k1 = 2;
         System.out.println(longestOnes(nums, k1));
         // Time: O(n) Space(1)
+
+        // Given a string s and an integer k, you can choose any character of the string and change it to any other uppercase English character. Do this at most k times.
+        // Return the length of the longest substring containing the same letter you can get after performing at most k replacements.
+        String s4 = "AABABBA";
+        int k2 = 1;
+        System.out.println(characterReplacement(s4, k2));
+        // Time: O(n) Space: O(1)
+
+        // Given an integer array nums and an integer k, return an array of the maximum value in each sliding window of size k.
+        int[] nums1 = {1, 3, -1, -3, 5, 3, 6, 7};
+        int k3 = 3;
+        System.out.println(Arrays.toString(maxSlidingWindow(nums1, k3)));
+        // Time: O(n) Space: O(k)
     }
 
     private static int maxSum(int[] arr, int k) {
@@ -150,5 +162,44 @@ public class SlidingWindow {
             maxLen = Math.max(maxLen, right - left + 1);
         }
         return maxLen;
+    }
+
+    private static int characterReplacement(String s, int k) {
+        int[] freq = new int[26];
+        int left = 0, right = 0, maxFreq = 0, maxLen = 0;
+
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            freq[c - 'A']++;
+            maxFreq = Math.max(maxFreq, freq[c - 'A']);
+
+            if ((right - left + 1) - maxFreq > k) {
+                freq[s.charAt(left) - 'A']--;
+                left++;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
+            right++;
+        }
+        return maxLen;
+    }
+
+    private static int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || k <= 0) return new int[0];
+        int[] result = new int[nums.length - k + 1];
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!deque.isEmpty() && deque.peekFirst() < i - k + 1)
+                deque.pollFirst();
+
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i])
+                deque.pollLast();
+
+            deque.offer(i);
+
+            if (!deque.isEmpty() && i >= k - 1)
+                result[i - k + 1] = nums[deque.peekFirst()];
+        }
+        return result;
     }
 }
